@@ -17,7 +17,6 @@ def analyze_diagram(diagram_filepath):
         xml_content = file.read()
 
     use_case_name = diagram_filepath.split('.', 1)[0]
-    use_case_name = use_case_name.replace("use-case-", "")
     root = ET.fromstring(xml_content)
     stakeholders = set()
     communication_paths = 0
@@ -31,13 +30,23 @@ def analyze_diagram(diagram_filepath):
         elif element_type == 'Relation':
             communication_paths += 1
             text = element.find('panel_attributes').text
-            text = text.replace("lt=->>", "")
-            text = text.strip()
             communication_steps.append(text)
         elif element_type == "UMLClass":
-            entities.append(element.find('panel_attributes').text)
+            text = element.find('panel_attributes').text
+            textSplit = text.split('--')
+            entities.append(textSplit[0].strip())
 
     return stakeholders, communication_paths, communication_steps, use_case_name, entities
+
+def getNameFromUMLArrow(arrow):
+
+    switcher = {
+        "lt=<<<<-": "aggregates",
+        "lt=<<-": "generalizes",
+        "lt=<-": "includes",
+    }
+    
+    return switcher.get(arrow, "undefined")  # Default case if argument not found
 
 if __name__ == "__main__":
     for diagram_file in get_diagram_file_list():
@@ -59,3 +68,20 @@ if __name__ == "__main__":
         for step in communication_steps:
             print(step)
         print()
+        
+        for i in range(len(entities)-1):
+            entity = entities[i]
+            try:
+                entityNext = entities[i+1]
+            except IndexError:
+                entityNext = "end"
+            try:
+                arrowName = getNameFromUMLArrow(communication_steps[i])
+            except IndexError:
+                arrowName = "end"
+            if(i < len(entities)-4):
+                print(f'{entityNext} {arrowName} {entity}')
+            elif(i < len(entities)-5):
+                print(f'{entity} {arrowName} {entityNext}')
+            else:
+                print(f'trait includes {entityNext}')

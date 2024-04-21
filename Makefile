@@ -15,6 +15,9 @@ MODULE3_ENTRY=$(MODULE3)/app.py
 MODULE4=$(CURRENT_DIR)/module-4
 MODULE4_ENTRY=$(MODULE4)/app.py
 
+MODULE5=$(CURRENT_DIR)/module-5
+MODULE5_ENTRY=$(MODULE4)/app.py
+
 .PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*' $(MAKEFILE_LIST) | sort
@@ -42,3 +45,9 @@ m4: ## executes module 4
 	@echo "executing module 4 ..."
 	@cd $(MODULE4); ./app.py
 	@echo "completed module 4."
+
+.PHONY: m5
+m5: ## executes module 5
+	@echo "executing module 5 ..."
+	@cd $(MODULE5); ./app.py
+	@echo "completed module 5."

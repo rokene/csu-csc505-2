@@ -3,13 +3,14 @@
 def main():
     while True:
         try:
-            amount = float(input("Enter the dollar amount: "))
+            amount = float(input("Enter a numeric amount: "))
             if amount <= 0:
                 raise ValueError("Amount cannot be negative or zero.")
+            if amount > 1000000000000:  # Check for numbers exceeding or equal to a trillion
+                raise ValueError("Amount must be less than a trillion.")
             break
         except ValueError as e:
-            print("Invalid input. Please enter a numeric value.")
-            print(e)
+            print("Invalid input:", e)
 
     dollars, cents = divmod(amount, 1)
     dollars = int(dollars)

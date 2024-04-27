@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 .DEFAULT_GOAL := help
 
 CURRENT_DIR := $(CURDIR)
@@ -16,7 +18,10 @@ MODULE4=$(CURRENT_DIR)/module-4
 MODULE4_ENTRY=$(MODULE4)/app.py
 
 MODULE5=$(CURRENT_DIR)/module-5
-MODULE5_ENTRY=$(MODULE4)/app.py
+MODULE5_ENTRY=$(MODULE5)/app.py
+
+MODULE6=$(CURRENT_DIR)/module-6
+MODULE6_ENTRY=$(MODULE6)/app.py
 
 .PHONY: help
 help:
@@ -37,17 +42,23 @@ m2: ## executes module 2
 .PHONY: m3
 m3: ## executes module 3
 	@echo "executing module 3 ..."
-	@cd $(MODULE3); ./app.py
+	@$(MODULE3_ENTRY)
 	@echo "completed module 3."
 
 .PHONY: m4
 m4: ## executes module 4
 	@echo "executing module 4 ..."
-	@cd $(MODULE4); ./app.py
+	@$(MODULE4_ENTRY)
 	@echo "completed module 4."
 
 .PHONY: m5
 m5: ## executes module 5
 	@echo "executing module 5 ..."
-	@cd $(MODULE5); ./app.py
+	@$(MODULE5_ENTRY)
 	@echo "completed module 5."
+
+.PHONY: m6
+m6: ## executes module 6
+	@echo "executing module 6 ..."
+	@$(MODULE6_ENTRY)
+	@echo "completed module 6."

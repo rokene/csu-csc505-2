@@ -10,3 +10,4 @@ execute module 3 exercise: `make m3`
 execute module 4 exercise: `make m4`
 execute module 5 exercise: `make m5`
 execute module 6 exercise: `make m6`
+execute final project exercise: `make final`

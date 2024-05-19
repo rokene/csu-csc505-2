@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 .DEFAULT_GOAL := help
 
 CURRENT_DIR := $(CURDIR)
